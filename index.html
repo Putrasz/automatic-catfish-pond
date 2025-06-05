@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OTOMATISASI KOLAM IKAN LELE</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+  <!-- PENJADWALAN -->
+  <div class="countdown-box">
+    <h2>JADWALKAN WAKTU SISTEM BEKERJA</h2>
+    <input type="datetime-local" id="schedule-time" />
+    <div class="countdown" id="countdown">
+      <span id="days">00</span><small>hari</small> :
+      <span id="hours">00</span><small>jam</small> :
+      <span id="minutes">00</span><small>menit</small> :
+      <span id="seconds">00</span><small>detik</small>
+    </div>
+    <div id="schedule-status"></div>
+  </div>
+
+  <!-- KONTROL SISTEM -->
+  <div class="container">
+    <div class="main-layout">
+      <div id="kolam-lele">
+        <img id="level-img" src="images/STAY.png" alt="Water Level" />
+      </div>
+
+      <div class="controls">
+        <button id="drain-fill">Kuras & Isi</button>
+        <div class="small-buttons">
+          <button id="drain">Kuras</button>
+          <button id="fill">Isi</button>
+        </div>
+        <div id="estimate-time"></div>
+        <div class="lockout">
+          <button id="lockout-btn">MATIKAN SISTEM</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KILL SWITCH -->
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <h2>Enter Credentials</h2>
+      <input type="text" id="password" placeholder="Password" />
+      <button id="unlock-btn">LOCK</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

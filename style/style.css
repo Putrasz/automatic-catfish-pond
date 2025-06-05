@@ -1,0 +1,351 @@
+body {
+  font-family: Poppins, sans-serif;
+  background: #eef;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==============================
+   ========== COUNTDOWN ==========
+   ============================== */
+
+.countdown-box {
+  background-color: #ffffff;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 600px;
+}
+
+.countdown-box h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: black;
+}
+
+#schedule-time {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  margin-bottom: 15px;
+  width: 90%;
+  max-width: 300px;
+}
+
+.countdown-box button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.countdown-box button:hover {
+  background-color: #45a049;
+}
+
+.countdown {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: black;
+}
+
+.countdown span {
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.countdown small {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+/* ==========================
+   ========== LAYOUT ==========
+   ========================== */
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  width: 100%;
+}
+
+#level-status {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#kolam-lele {
+  text-align: center;
+  width: 100%;
+}
+
+#kolam-lele img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.controls {
+  text-align: center;
+  width: 100%;
+}
+
+/* ===============================
+   ========== BUTTON AREA ==========
+   =============================== */
+
+#drain-fill {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 16px 30px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.small-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.small-buttons button {
+  font-size: 16px;
+  padding: 12px 26px;
+  width: 140px;
+  max-width: 100%;
+}
+
+.lockout button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #dc3545;
+  color: white;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 300px;
+}
+
+.lockout button:hover {
+  background-color: #b02a37;
+}
+
+button:disabled {
+  background: gray;
+  color: white;
+  cursor: not-allowed;
+}
+
+#estimate-time {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+  min-height: 24px;
+}
+
+/* ==============================
+   ========== MODAL ==========
+   ============================== */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.modal-content input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* ==============================
+   ========== RESPONSIVE ==========
+   ============================== */
+
+/* Untuk tablet ke bawah */
+@media (max-width: 768px) {
+  .countdown-box {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .countdown-box h2 {
+    font-size: 1.5rem;
+  }
+
+  #schedule-time {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .countdown {
+    font-size: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .countdown span {
+    margin: 0 2px;
+  }
+
+  .countdown small {
+    font-size: 0.9rem;
+  }
+
+  .countdown-box button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* Untuk smartphone kecil */
+@media (max-width: 414px) {
+  .countdown-box h2 {
+    font-size: 1.3rem;
+  }
+
+  #schedule-time {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .countdown {
+    font-size: 1.3rem;
+    gap: 5px;
+  }
+
+  .small-buttons {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .small-buttons button,
+  #drain-fill,
+  .lockout button {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .modal-content input {
+    width: 100%;
+  }
+}
+
+/* Untuk layar desktop */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-layout {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  #kolam-lele {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #kolam-lele img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+
+  .controls {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #drain-fill {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .small-buttons {
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .small-buttons button {
+    width: 120px;
+  }
+
+  .lockout button {
+    max-width: 250px;
+    width: 100%;
+  }
+
+  #estimate-time {
+    min-height: 30px;
+  }
+}
