@@ -14,17 +14,16 @@ const passwordInput = document.getElementById("password");
 const unlockBtn = document.getElementById("unlock-btn");
 const cancelBtn = document.getElementById("cancel-btn");
 
-// System state variables
 let drainAnimationInterval = null;
 let fillAnimationInterval = null;
 let scheduleTime = null;
 let countdownInterval = null;
 let systemRunning = false;
 let lockout = false;
-let systemDuration = 10000; // Default 10 detik (bisa diubah)
+let systemDuration = 10000; // Default 10 detik
 let activeTimeouts = [];
 
-// Utility functions
+// Sistem waktu
 function resetCountdownDisplay() {
   document.getElementById("days").textContent = "00";
   document.getElementById("hours").textContent = "00";
@@ -49,7 +48,7 @@ function clearAllTimeouts() {
   activeTimeouts = [];
 }
 
-// System control functions
+// Sistem scheduling functions
 function startScheduleCountdown() {
   if (lockout) return;
   
@@ -88,17 +87,23 @@ function updateScheduleCountdown() {
 
 function startManualCountdown(durationMs) {
   clearInterval(countdownInterval);
-  const start = Date.now();
+  
+  // Menampilkan durasi asli
+  setCountdownFromMilliseconds(durationMs);
+  
+  const startTime = Date.now();
+  
   countdownInterval = setInterval(() => {
-    const now = Date.now();
-    const remaining = durationMs - (now - start);
+    const elapsed = Date.now() - startTime;
+    const remaining = Math.max(0, durationMs - elapsed);
+    
     if (remaining <= 0) {
       clearInterval(countdownInterval);
       resetCountdownDisplay();
     } else {
       setCountdownFromMilliseconds(remaining);
     }
-  }, 1000);
+  }, 100); // Update waktu setiap 100ms untuk ketepatan waktu
 }
 
 function startSystem() {
@@ -109,14 +114,17 @@ function startSystem() {
   statusDiv.innerText = "Sistem dimulai!";
   estimateTime.innerText = "Sedang bekerja...";
   
-  // Durasi untuk masing-masing fase (dalam ms)
-  const drainDuration = 10000; // 5 detik drain
-  const fillDuration = 10000;  // 5 detik fill
+  // Durasi untuk masing-masing operasi
+  const drainDuration = 10000;
+  const fillDuration = 10000;
   
-  // Animasi DRAIN (3 gambar/detik)
+  // Mulai hitung mundur sebelum menampilkan animasi
+  startManualCountdown(drainDuration + fillDuration);
+  
+  // Animasi Kuras (DRAIN)
   const drainImages = ["images/TURUN-3.png", "images/TURUN-2.png", "images/TURUN-1.png"];
   let drainCycle = 0;
-  const totalDrainCycles = Math.floor(drainDuration / 1000 * 1); // 15 cycles untuk 5 detik
+  const totalDrainCycles = Math.floor(drainDuration / 1000);
 
   drainAnimationInterval = setInterval(() => {
     if (lockout) return;
@@ -128,18 +136,16 @@ function startSystem() {
       clearInterval(drainAnimationInterval);
       startFillAnimation(fillDuration);
     }
-  }, 1000); // 3 gambar/detik (1000ms/3)
-
-  startManualCountdown(drainDuration + fillDuration);
+  }, 1000);
 }
 
 function startFillAnimation(duration) {
   if (lockout) return;
   
-  // Animasi FILL (3 gambar/detik)
+  // Animasi Mengisi (FILL)
   const fillImages = ["images/NAIK-1.png", "images/NAIK-2.png", "images/NAIK-3.png"];
   let fillCycle = 0;
-  const totalFillCycles = Math.floor(duration / 1000 * 1); // 15 cycles untuk 5 detik
+  const totalFillCycles = Math.floor(duration / 1000);
 
   fillAnimationInterval = setInterval(() => {
     if (lockout) return;
@@ -151,7 +157,7 @@ function startFillAnimation(duration) {
       clearInterval(fillAnimationInterval);
       finishSystem();
     }
-  }, 1000); // 3 gambar/detik (1000ms/3)
+  }, 1000);
 }
 
 function finishSystem() {
@@ -175,13 +181,16 @@ function simulateDrainAndFill() {
   resetAllOperations();
   estimateTime.innerText = "Sedang bekerja...";
 
-  const drainDuration = 5000; // 5 detik drain
-  const fillDuration = 5000;  // 5 detik fill
+  // masing" 10 detik
+  const drainDuration = 10000;
+  const fillDuration = 10000; 
   
-  // Animasi DRAIN
+  startManualCountdown(drainDuration + fillDuration);
+  
+  // Animasi kuras (DRAIN)
   const drainImages = ["images/TURUN-3.png", "images/TURUN-2.png", "images/TURUN-1.png"];
   let drainCycle = 0;
-  const totalDrainCycles = Math.floor(drainDuration / 1000 * 1);
+  const totalDrainCycles = Math.floor(drainDuration / 1000);
 
   drainAnimationInterval = setInterval(() => {
     if (lockout) return;
@@ -194,8 +203,6 @@ function simulateDrainAndFill() {
       startFillAnimation(fillDuration);
     }
   }, 1000);
-
-  startManualCountdown(drainDuration + fillDuration);
 }
 
 function simulateDrain() {
@@ -204,10 +211,13 @@ function simulateDrain() {
   resetAllOperations();
   estimateTime.innerText = "Sedang menguras air...";
 
-  const duration = 10000; // 5 detik
+  const duration = 10000;
+  
+  startManualCountdown(duration);
+  
   const drainImages = ["images/TURUN-3.png", "images/TURUN-2.png", "images/TURUN-1.png"];
   let drainCycle = 0;
-  const totalCycles = Math.floor(duration / 1000 * 1);
+  const totalCycles = Math.floor(duration / 1000);
 
   drainAnimationInterval = setInterval(() => {
     if (lockout) return;
@@ -223,8 +233,6 @@ function simulateDrain() {
       }
     }
   }, 1000);
-
-  startManualCountdown(duration);
 }
 
 function simulateFill() {
@@ -233,10 +241,13 @@ function simulateFill() {
   resetAllOperations();
   estimateTime.innerText = "Sedang mengisi air...";
 
-  const duration = 10000; // 5 detik
+  const duration = 10000;
+  
+  startManualCountdown(duration);
+  
   const fillImages = ["images/NAIK-1.png", "images/NAIK-2.png", "images/NAIK-3.png"];
   let fillCycle = 0;
-  const totalCycles = Math.floor(duration / 1000 * 1);
+  const totalCycles = Math.floor(duration / 1000);
 
   fillAnimationInterval = setInterval(() => {
     if (lockout) return;
@@ -252,8 +263,6 @@ function simulateFill() {
       }
     }
   }, 1000);
-
-  startManualCountdown(duration);
 }
 
 function resetAllAnimations() {
@@ -277,7 +286,7 @@ function resetAllOperations() {
   scheduleTime = null;
 }
 
-// Lock/unlock functions
+// Lock function
 function showLockDisplay() {
   authModal.style.display = "flex";
 }
@@ -298,11 +307,6 @@ function lockSystem() {
     passwordInput.value = "";
     passwordInput.focus();
   }
-}
-
-function cancelLock() {
-  authModal.style.display = "none";
-  statusDiv.innerText = "Sistem berjalan normal";
 }
 
 // Event listeners
