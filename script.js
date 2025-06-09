@@ -52,7 +52,7 @@ function clearAllTimeouts() {
 // System control functions
 function startScheduleCountdown() {
   if (lockout) return;
-  
+
   clearInterval(countdownInterval);
   scheduleTime = new Date(scheduleInput.value).getTime();
   const now = Date.now();
@@ -103,16 +103,16 @@ function startManualCountdown(durationMs) {
 
 function startSystem() {
   if (lockout) return;
-  
+
   resetAllOperations();
   systemRunning = true;
   statusDiv.innerText = "Sistem dimulai!";
   estimateTime.innerText = "Sedang bekerja...";
-  
+
   // Durasi untuk masing-masing fase (dalam ms)
   const drainDuration = 10000; // 5 detik drain
   const fillDuration = 10000;  // 5 detik fill
-  
+
   // Animasi DRAIN (3 gambar/detik)
   const drainImages = ["images/TURUN-3.png", "images/TURUN-2.png", "images/TURUN-1.png"];
   let drainCycle = 0;
@@ -123,7 +123,7 @@ function startSystem() {
     const imgIndex = drainCycle % drainImages.length;
     levelImg.src = drainImages[imgIndex];
     drainCycle++;
-    
+
     if (drainCycle >= totalDrainCycles) {
       clearInterval(drainAnimationInterval);
       startFillAnimation(fillDuration);
@@ -135,7 +135,7 @@ function startSystem() {
 
 function startFillAnimation(duration) {
   if (lockout) return;
-  
+
   // Animasi FILL (3 gambar/detik)
   const fillImages = ["images/NAIK-1.png", "images/NAIK-2.png", "images/NAIK-3.png"];
   let fillCycle = 0;
@@ -146,7 +146,7 @@ function startFillAnimation(duration) {
     const imgIndex = fillCycle % fillImages.length;
     levelImg.src = fillImages[imgIndex];
     fillCycle++;
-    
+
     if (fillCycle >= totalFillCycles) {
       clearInterval(fillAnimationInterval);
       finishSystem();
@@ -166,7 +166,7 @@ function finishSystem() {
 // Operation functions
 function setSystemDuration(durationMs) {
   systemDuration = durationMs;
-  alert(`Durasi sistem diatur ke ${durationMs/1000} detik`);
+  alert(`Durasi sistem diatur ke ${durationMs / 1000} detik`);
 }
 
 function simulateDrainAndFill() {
@@ -177,7 +177,7 @@ function simulateDrainAndFill() {
 
   const drainDuration = 5000; // 5 detik drain
   const fillDuration = 5000;  // 5 detik fill
-  
+
   // Animasi DRAIN
   const drainImages = ["images/TURUN-3.png", "images/TURUN-2.png", "images/TURUN-1.png"];
   let drainCycle = 0;
@@ -188,7 +188,7 @@ function simulateDrainAndFill() {
     const imgIndex = drainCycle % drainImages.length;
     levelImg.src = drainImages[imgIndex];
     drainCycle++;
-    
+
     if (drainCycle >= totalDrainCycles) {
       clearInterval(drainAnimationInterval);
       startFillAnimation(fillDuration);
@@ -214,7 +214,7 @@ function simulateDrain() {
     const imgIndex = drainCycle % drainImages.length;
     levelImg.src = drainImages[imgIndex];
     drainCycle++;
-    
+
     if (drainCycle >= totalCycles) {
       clearInterval(drainAnimationInterval);
       if (!lockout) {
@@ -243,7 +243,7 @@ function simulateFill() {
     const imgIndex = fillCycle % fillImages.length;
     levelImg.src = fillImages[imgIndex];
     fillCycle++;
-    
+
     if (fillCycle >= totalCycles) {
       clearInterval(fillAnimationInterval);
       if (!lockout) {
@@ -287,7 +287,7 @@ function lockSystem() {
   if (password === "1234") {
     lockout = true;
     authModal.style.display = "none";
-    
+
     resetAllOperations();
     systemRunning = false;
     statusDiv.innerText = "SISTEM TELAH DIMATIKAN.";
@@ -310,6 +310,37 @@ scheduleInput.addEventListener("change", () => {
   if (!lockout) startScheduleCountdown();
 });
 
+let relayStatus = 0;
+
+async function toggleRelay() {
+  // Tentukan status yang ingin dikirim
+  const nextStatus = relayStatus === 0 ? 1 : 0;
+
+  try {
+    const response = await fetch('control.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ relay_status: nextStatus })
+    });
+
+    const result = await response.json();
+
+    // Gunakan status dari server (bukan variabel lokal)
+    relayStatus = result.relay_status;
+    console.log("Nilai relayStatus dari server:", relayStatus);
+
+    if (relayStatus == 1) {
+      document.getElementById('fill').textContent = 'Proses Mengisi';
+    } else {
+      document.getElementById('fill').textContent = 'Apakah Anda Ingin Mengisi  Air';
+    }
+
+    console.log("Relay Status:", relayStatus);
+  } catch (error) {
+    console.error("Gagal mengubah status relay:", error);
+  }
+}
+
 drainFillBtn.addEventListener("click", simulateDrainAndFill);
 drainBtn.addEventListener("click", simulateDrain);
 fillBtn.addEventListener("click", simulateFill);
@@ -325,3 +356,5 @@ window.addEventListener("click", (e) => {
 
 // Initialize
 resetCountdownDisplay();
+
+
