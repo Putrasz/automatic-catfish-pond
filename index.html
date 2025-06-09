@@ -29,14 +29,14 @@
       </div>
 
       <div class="controls">
-        <button id="drain-fill">Kuras & Isi</button>
+        <button id="drain-fill" onclick="toggleDrainfill()">Apakah Anda Ingin Kuras dan Isi Air?</button>
         <div class="small-buttons">
-          <button id="drain" >Kuras</button>
-          <button id="fill" onclick="toggleRelay()">Apakah Anda Ingin Mengisi  Air</button>
+          <button id="drain" onclick="toggleDrain()">Apakah Anda Ingin Kuras Air ?</button>
+          <button id="fill" onclick="toggleRelay()">Apakah Anda Ingin Mengisi Air ?</button>
         </div>
         <div id="estimate-time"></div>
         <div class="lockout">
-          <button id="lockout-btn">MATIKAN SISTEM</button>
+          <button id="lockout-btn" onclick="toggleLock()" >MATIKAN SISTEM</button>
         </div>
       </div>
     </div>

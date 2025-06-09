@@ -312,6 +312,10 @@ scheduleInput.addEventListener("change", () => {
 
 let relayStatus = 0;
 
+let drainStatus = 0;
+let drainfillstatus = 0;
+
+
 async function toggleRelay() {
   // Tentukan status yang ingin dikirim
   const nextStatus = relayStatus === 0 ? 1 : 0;
@@ -340,6 +344,105 @@ async function toggleRelay() {
     console.error("Gagal mengubah status relay:", error);
   }
 }
+
+async function toggleDrain() {
+  const nextDrain = drainStatus === 0 ? 1 : 0;
+
+  try {
+    const response = await fetch('control.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tmkuras: nextDrain }) 
+    });
+
+    const result = await response.json();
+    drainStatus = result.relay_status;
+    console.log("Nilai tmkuras (drainStatus) dari server:", drainStatus);
+
+    if (drainStatus == 1) {
+      document.getElementById('drain').textContent = 'Sedang Menguras';
+    } else {
+      document.getElementById('drain').textContent = 'Apakah Anda Ingin Kuras Air ?';
+    }
+
+  } catch (error) {
+    console.error("Gagal mengubah status kuras:", error);
+  }
+}
+
+let drainfillStatus = 0; // Variabel global
+
+async function toggleDrainfill() {
+  const nextDrainfill = drainfillStatus === 0 ? 1 : 0;
+
+  try {
+    const response = await fetch('control.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tmkurasis: nextDrainfill }) // sesuai dengan PHP
+    });
+
+    const result = await response.json();
+    drainfillStatus = result.relay_status;
+
+    console.log("Nilai tmkurasis dari server:", drainfillStatus);
+
+    if (drainfillStatus === 1) {
+      document.getElementById('drain-fill').textContent = 'Proses';
+    } else {
+      document.getElementById('drain-fill').textContent = 'Apakah Anda Ingin Kuras dan Isi Air?';
+    }
+
+  } catch (error) {
+    console.error("Gagal mengubah status kuras:", error);
+  }
+}
+
+let systemLocked = false;
+
+document.getElementById("lockout-btn").addEventListener("click", function () {
+  systemLocked = !systemLocked;
+
+  if (systemLocked) {
+    // Ubah tampilan tombol
+    this.innerText = "SISTEM DIMATIKAN";
+    this.style.backgroundColor = "red";
+
+    // Kirim status ke server (jika ada backend)
+    sendLockoutStatus(true);
+
+    // Tampilkan status
+    alert("⚠️ Sistem otomatis dimatikan.");
+  } else {
+    this.innerText = "MATIKAN SISTEM";
+    this.style.backgroundColor = "";
+
+    sendLockoutStatus(false);
+    alert("✅ Sistem otomatis kembali aktif.");
+  }
+});
+
+function sendLockoutStatus(status) {
+  fetch('http://192.168.18.65/automatic-catfish-pond/lockout.php', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      lockout: status ? 1 : 0
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("Status lockout:", data);
+  })
+  .catch(error => {
+    console.error("Gagal kirim status lockout:", error);
+  });
+}
+
+
+
 
 drainFillBtn.addEventListener("click", simulateDrainAndFill);
 drainBtn.addEventListener("click", simulateDrain);
