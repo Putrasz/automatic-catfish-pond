@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OTOMATISASI KOLAM IKAN LELE</title>
+   <link rel="stylesheet" href="stylecoba.css" />
+</head>
+<body>
+  <div class="status-indicator online" id="status-indicator">
+    🟢 Sistem Online
+  </div>
+
+  <div class="header">
+    <h1>🐟 OTOMATISASI KOLAM IKAN LELE</h1>
+    <p>Sistem Kontrol Otomatis untuk Pengelolaan Air Kolam</p>
+  </div>
+
+  <!-- PENJADWALAN -->
+  <div class="countdown-box">
+    <h2>⏰ JADWALKAN WAKTU SISTEM BEKERJA</h2>
+    <input type="datetime-local" id="schedule-time" />
+    <div class="countdown" id="countdown">
+      <div class="countdown-item">
+        <span id="days">00</span>
+        <small>hari</small>
+      </div>
+      <div class="countdown-item">
+        <span id="hours">00</span>
+        <small>jam</small>
+      </div>
+      <div class="countdown-item">
+        <span id="minutes">00</span>
+        <small>menit</small>
+      </div>
+      <div class="countdown-item">
+        <span id="seconds">00</span>
+        <small>detik</small>
+      </div>
+    </div>
+    <div id="schedule-status">Pilih waktu untuk memulai sistem otomatis</div>
+  </div>
+
+  <!-- KONTROL SISTEM -->
+  <div class="container">
+    <div class="main-layout">
+      <div id="kolam-lele">
+        <h3 style="color: white; margin-bottom: 20px; font-size: 1.5rem;">🏊‍♂️ Status Kolam</h3>
+        <div class="pond-container">
+          <div class="water-level stay" id="water-level">
+            <div class="fish">🐟</div>
+            <div class="fish">🐠</div>
+            <div class="fish">🐡</div>
+          </div>
+        </div>
+        <p style="color: white; margin-top: 15px; font-weight: 600;">Level Air: Normal</p>
+      </div>
+
+      <div class="controls">
+        <button class="control-button" id="drain-fill" onclick="toggleDrainfill()">
+          🔄 Kuras dan Isi Air
+        </button>
+        <div class="small-buttons">
+          <button class="control-button" id="drain" onclick="toggleDrain()">
+            📉 Kuras Air
+          </button>
+          <button class="control-button" id="fill" onclick="toggleRelay()">
+            📈 Isi Air
+          </button>
+        </div>
+        <div id="estimate-time">⏱️ Sistem siap digunakan</div>
+        <div class="lockout">
+          <button class="control-button" id="lockout-btn">
+            🔒 MATIKAN SISTEM
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AUTENTIKASI -->
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <h2>🔐 Masukkan Password</h2>
+      <input type="password" id="password" placeholder="Masukkan password sistem" />
+      <div class="modal-buttons">
+        <button id="unlock-btn">KUNCI</button>
+        <button id="cancel-btn">BATAL</button>
+      </div>
+    </div>
+  </div>
+
+   <script src="scriptcoba.js"></script>
+
+</body>
+</html>
