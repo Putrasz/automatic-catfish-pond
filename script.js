@@ -201,7 +201,7 @@ function lockSystem() {
     authModal.style.display = "none";
     resetAllOperations();
     systemRunning = false;
-    estimateTime.innerText = "";
+    estimateTime.innerText = "SISTEM TERKUNCI!";
     levelImg.src = "images/STAY.png";
   } else {
     alert("Password salah!");
@@ -209,6 +209,7 @@ function lockSystem() {
     passwordInput.focus();
   }
 }
+
 
 function cancelLock() {
   authModal.style.display = "none";
