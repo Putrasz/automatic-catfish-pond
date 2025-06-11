@@ -125,6 +125,15 @@ body {
   max-width: 300px;
 }
 
+.controls button {
+  font-weight: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
 .small-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -138,6 +147,8 @@ body {
   padding: 12px 26px;
   width: 140px;
   max-width: 100%;
+  background-color: #2296f3;
+  color: white;
 }
 
 .lockout button {
