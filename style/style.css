@@ -9,15 +9,15 @@ body {
 
 .countdown-box {
   background-color: #ffffff;
-  margin: 50px auto;
-  padding: 20px;
+  margin: 20px auto;
+  padding: 10px;
   border-radius: 20px;
   text-align: center;
   max-width: 600px;
 }
 
 .countdown-box h2 {
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   font-size: 1.8rem;
   color: black;
 }
@@ -147,6 +147,53 @@ body {
   min-height: 24px;
 }
 
+/* STYLE COUNTDOWN SISTEM AKTIF */
+
+.countdown-box:has(#system-countdown) {
+  background-color: #34495e;
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.countdown-box:has(#system-countdown) h2 {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+#system-countdown {
+  color: white;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+#system-countdown span {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+#system-countdown small {
+  color: #bdc3c7;
+  font-size: 0.8rem;
+}
+
+/* Fallback untuk browser yang tidak mendukung :has() */
+.countdown-box.system-active {
+  background-color: #34495e;
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.countdown-box.system-active h2 {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
 /*  MODAL  */
 
 .modal {
@@ -219,6 +266,27 @@ body {
     width: 100%;
     margin-top: 10px;
   }
+
+    .countdown-box:has(#system-countdown),
+  .countdown-box.system-active {
+    margin: 15px auto;
+    padding: 12px;
+    max-width: 350px;
+  }
+  
+  .countdown-box:has(#system-countdown) h2,
+  .countdown-box.system-active h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  #system-countdown {
+    font-size: 1.3rem;
+  }
+  
+  #system-countdown small {
+    font-size: 0.75rem;
+  }
 }
 
 /* Untuk smartphone kecil */
@@ -255,6 +323,22 @@ body {
 
   .modal-content input {
     width: 100%;
+  }
+
+    .countdown-box:has(#system-countdown),
+  .countdown-box.system-active {
+    margin: 10px auto;
+    max-width: 300px;
+    padding: 10px;
+  }
+  
+  .countdown-box:has(#system-countdown) h2,
+  .countdown-box.system-active h2 {
+    font-size: 1rem;
+  }
+  
+  #system-countdown {
+    font-size: 1.2rem;
   }
 }
 

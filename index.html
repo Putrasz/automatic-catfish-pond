@@ -1,34 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OTOMATISASI KOLAM IKAN LELE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Otomatisasi Kolam Lele</title>
   <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
 
-  <!-- PENJADWALAN -->
-  <div class="countdown-box">
-    <h2>JADWALKAN WAKTU SISTEM BEKERJA</h2>
-    <input type="datetime-local" id="schedule-time" />
-    <div class="countdown" id="countdown">
-      <span id="days">00</span><small>hari</small> :
-      <span id="hours">00</span><small>jam</small> :
-      <span id="minutes">00</span><small>menit</small> :
-      <span id="seconds">00</span><small>detik</small>
-    </div>
-    <div id="schedule-status"></div>
-  </div>
+  <!-- Realtime -->
+<div class="container-time">
+  <section class="countdown-box">
+    <h2>WAKTU SAAT INI</h2>
+      <div class="countdown" id="schedule-countdown">
+        <span id="schedule-date">00</span><small>,</small>
+        <span id="schedule-hours">00</span><small></small> :
+        <span id="schedule-minutes">00</span><small></small> :
+        <span id="schedule-seconds">00</span><small></small>
+      </div>
+  </section>
 
-  <!-- KONTROL SISTEM -->
+  <!-- Countdown Sistem Aktif -->
+  <section class="countdown-box">
+    <h2>WAKTU SISTEM BERJALAN</h2>
+    <div class="countdown" id="system-countdown">
+      <span id="system-minutes">00</span><small>menit</small> :
+      <span id="system-seconds">00</span><small>detik</small>
+    </div>
+  </section>
+</div>
+
+
+  <!-- Tampilan Utama -->
   <div class="container">
     <div class="main-layout">
-
       <div id="kolam-lele">
-        <img id="level-img" src="images/STAY.png" alt="Water Level" />
+        <img id="level-img" src="images/STAY.png" alt="Ketinggian Air" />
       </div>
-
       <div class="controls">
         <button id="drain-fill">Kuras & Isi</button>
         <div class="small-buttons">
@@ -40,19 +48,19 @@
           <button id="lockout-btn">MATIKAN SISTEM</button>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- KILL SWITCH -->
+
+
+  <!-- Modal Autentikasi -->
   <div id="auth-modal" class="modal">
-
     <div class="modal-content">
-      <h2>Enter Credentials</h2>
-      <input type="text" id="password" placeholder="Password" />
+      <h2>Masukkan Password</h2>
+      <input type="password" id="password" placeholder="Password" />
       <button id="unlock-btn">LOCK</button>
+      <button id="cancel-btn">BATAL</button>
     </div>
-
   </div>
 
   <script src="script.js"></script>
