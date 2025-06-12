@@ -38,14 +38,14 @@
         <img id="level-img" src="images/STAY.png" alt="Ketinggian Air" />
       </div>
       <div class="controls">
-        <button id="drain-fill">Kuras & Isi</button>
+        <button id="drain-fill"  onclick="toggleDrainfill()">Kuras & Isi</button>
         <div class="small-buttons">
-          <button id="drain">Kuras</button>
-          <button id="fill">Isi</button>
+          <button id="drain" onclick="toggleDrain()">Kuras</button>
+          <button id="fill" onclick="toggleRelay()">Isi</button>
         </div>
         <div id="estimate-time"></div>
         <div class="lockout">
-          <button id="lockout-btn">MATIKAN SISTEM</button>
+          <button id="lockout-btn" onclick="toggleLock()">MATIKAN SISTEM</button>
         </div>
       </div>
     </div>
